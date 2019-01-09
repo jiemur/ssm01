@@ -1,5 +1,7 @@
 package com.wzn.web;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wzn.pojo.User;
 import com.wzn.service.IuserService;
 import org.apache.commons.io.FileUtils;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -50,5 +54,18 @@ public class WebTest {
             }
         }
         return "";
+    }
+    @RequestMapping("list.do")
+    public String list(ModelMap map, HttpServletRequest req,User user){
+        int pageNum=req.getParameter("pageNum")==null?1:Integer.parseInt(req.getParameter("pageNum"));
+
+        int pageSize=3;
+        PageHelper.startPage(pageNum,pageSize);
+        List<User> lists=service.getUsername(user);
+        System.out.println(user);
+        PageInfo<User> page=new PageInfo<>(lists);
+        map.addAttribute("lists",lists);
+        map.addAttribute("page",page);
+        return "list";
     }
 }

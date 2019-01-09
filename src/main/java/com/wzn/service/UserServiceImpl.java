@@ -14,4 +14,9 @@ public class UserServiceImpl implements IuserService {
     public List<User> getUser() {
         return dao.getUser();
     }
+
+    @Override
+    public List<User> getUsername(User user) {
+        return dao.getUsername(user);
+    }
 }

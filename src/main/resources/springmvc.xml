@@ -20,7 +20,7 @@
         http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 ">
-    <mvc:interceptors>
+    <!--<mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**/*.do"/>
             <mvc:exclude-mapping path="/login.do"/>
@@ -29,7 +29,7 @@
             <mvc:exclude-mapping path="/doUpload.do"/>
             <bean class="com.wzn.web.TestMethod"/>
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors>-->
     <mvc:annotation-driven />
     <context:component-scan base-package="com.wzn.web" />
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
