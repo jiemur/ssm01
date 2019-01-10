@@ -2,9 +2,11 @@ package com.wzn.web;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.util.StringUtil;
 import com.wzn.pojo.User;
 import com.wzn.service.IuserService;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,7 +35,12 @@ public class WebTest {
         return "login";
     }
     @RequestMapping("/doLogin.do")
-    public String doLogin(){
+    public String doLogin(String username,String password){
+        System.out.println(username);
+        User u=service.getOne(username);
+        System.out.println(u);
+
+
         return "logins";
     }
     @RequestMapping("/upload.do")
@@ -59,11 +66,19 @@ public class WebTest {
     public String list(ModelMap map, HttpServletRequest req,User user){
         int pageNum=req.getParameter("pageNum")==null?1:Integer.parseInt(req.getParameter("pageNum"));
 
-        int pageSize=3;
+        int pageSize=1;
         PageHelper.startPage(pageNum,pageSize);
-        List<User> lists=service.getUsername(user);
-        System.out.println(user);
-        PageInfo<User> page=new PageInfo<>(lists);
+        List<User> lists=null;
+        if(StringUtils.isBlank(user.getUsername())){
+            user.setUsername(null);
+            lists= service.getUsername(user);
+
+        }else{
+            lists= service.getUsername(user);
+            String uname="&username="+user.getUsername();
+            map.addAttribute("uname",uname);
+        }
+        PageInfo<User> page=new PageInfo<>(lists,4);
         map.addAttribute("lists",lists);
         map.addAttribute("page",page);
         return "list";

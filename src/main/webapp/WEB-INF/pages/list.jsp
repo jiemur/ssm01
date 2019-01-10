@@ -12,6 +12,7 @@
     <title>Title</title>
 </head>
 <body>
+${uname}
 <form>
     <input type="text" name="username">
     <input type="submit"  value="查询">
@@ -45,8 +46,8 @@
                 <li>上一页</li>
             </c:when>
             <c:otherwise>
-                <li><a href="list.do?pageNum=${page.navigateFirstPage}">首页</a></li>
-                <li><a href="list.do?pageNum=${page.prePage}">上一页</a></li>
+                <li><a href="list.do?pageNum=1${uname}">首页</a></li>
+                <li><a href="list.do?pageNum=${page.prePage}${uname}">上一页</a></li>
             </c:otherwise>
         </c:choose>
     </c:when>
@@ -58,18 +59,13 @@
                 <li>${i}</li>
             </c:when>
             <c:otherwise>
-                <li><a href="list.do?pageNum=${i}">${i}</a></li>
+                <li><a href="list.do?pageNum=${i}${uname}">${i}</a></li>
             </c:otherwise>
         </c:choose>
 
 
 
     </c:forEach>
-
-
-
-
-
     <c:choose>
         <c:when test="${page.pages>0}">
             <c:choose>
@@ -78,21 +74,14 @@
                     <li>下一页</li>
                 </c:when>
                 <c:otherwise>
-                    <li><a href="list.do?pageNum=${page.nextPage}">下一页</a></li>
-                    <li><a href="list.do?pageNum=${page.navigateLastPage}">尾页</a></li>
+                    <li><a href="list.do?pageNum=${page.nextPage}${uname}">下一页</a></li>
+                    <li><a href="list.do?pageNum=${page.pages}${uname}">尾页</a></li>
                 </c:otherwise>
             </c:choose>
         </c:when>
     </c:choose>
 
 </ul>
-    <li><a href="#">首页</a></li>
-    <li><a href="#">上一页</a></li>
-    <li><a href="#">首页</a></li>
-    <li><a href="#">下一页</a></li>
-    <li><a href="#">尾页</a></li>
-
-
 <br>
 ${page}
 </body>

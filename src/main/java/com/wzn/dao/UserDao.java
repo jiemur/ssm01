@@ -7,4 +7,6 @@ import java.util.List;
 public interface UserDao {
     public List<User> getUser();
     public List<User> getUsername(User user);
+    public User getOne(String username);
+
 }

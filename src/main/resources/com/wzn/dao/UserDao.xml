@@ -14,4 +14,7 @@
             </if>
         </where>
     </select>
+    <select id="getOne" resultType="User" >
+        select username,password from user where username=#{username}
+    </select>
 </mapper>
